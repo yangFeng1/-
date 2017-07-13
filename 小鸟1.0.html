@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #box {
+            width: 800px;
+            height: 500px;
+            margin: auto;
+            /*background: skyblue;*/
+            position: relative;
+            border: 1px solid black;
+            /*background: url('../1.gif');*/
+            overflow: hidden;
+        }
+
+        #box1 {
+            width: 50px;  
+            height: 50px;
+            background: red;
+            position: absolute;
+
+        }
+
+
+        img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+
+</head>
+<body>
+<input type="button" value="开始游戏" id="btn"/>
+
+<div id="box">
+    <div id="box1">
+        <img src="../js%20练习/DOM操作.html/4.18/吴杰/IMG_2475.JPG" alt=""/>
+    </div>
+
+</div>
+</body>
+</html>
+<script>
+    var box = document.getElementById('box')
+    var box1 = document.getElementById('box1')
+    var btn = document.getElementById('btn')
+    function animate(obj, target) {
+        clearInterval(obj.timeId);
+        obj.timeId = setInterval(function () {
+            // 先获得对象当前的位置
+            var leader = obj.offsetLeft;
+            var step = 10;
+            step = leader < target ? step : -step;
+            if (Math.abs(target - leader) > Math.abs(step)) { // 当前位置不等于目标位置的话，则不断的进行加步长
+                leader = leader + step;
+                obj.style.top = leader + 'px';
+            } else {
+                clearInterval(obj.timeId);//清掉定时器
+                obj.style.left = target + 'px';//最后不足一个步长的时候，可以直接跳过来
+            }
+        }, 20);
+    }
+
+    //    bg.position = 'absolute'
+
+    var mun = 0
+    var mun1 = 0
+    box.onclick = function () {
+        mun -= 30
+//        clearInterval(time1)
+//        animate(box1,mun-=30)
+    }
+    var time1 = 0
+    var time2 = 0
+    btn.onclick = function () {
+
+        clearInterval(time2)
+      var time1 =  setInterval(function() {
+            mun += 1
+
+            box1.style.top = mun + 'px'
+
+          if(mun > 450) {
+              clearInterval(time1)
+              alert('游戏结束')
+          }
+          if(mun < 0) {
+              clearInterval(time1)
+              alert('游戏结束')
+          }
+        },10)
+
+
+        time2 = setInterval(function () {
+
+            mun1 += 1
+            document.getElementById('box').style.background = " url(../1.gif) repeat " + -mun1 + 'px'
+
+        }, 20)
+
+        setInterval(function() {
+             div = document.createElement('div')
+            box.appendChild(div)
+
+            div.setAttribute('class','top')
+            var div1 = document.getElementsByClassName('top')
+            for(var i = 0; i < div1.length; i++) {
+
+                div1[i].style.width = '90px'
+
+                div1[i].style.backgroundColor = 'red'
+                div1[i].style.position = 'absolute'
+                div1[i].style.top = '0px'
+                div1[i].style.right = '0px'
+                if(i == div1.length-1) {
+                    break
+                }
+
+            }
+
+
+            var mun3 = Math.floor(Math.random()*100+100)
+//            mun4 = mun3
+            var mun2 = 0
+            setInterval(function() {
+                mun2 += 5
+                for(var j = 0; j < div1.length; j++) {
+                    div1[i].style.height = mun3+'px'
+                    div1[i].style.right = mun2 + 'px'
+
+
+                }
+            },30)
+//            div = document.createElement('div')
+//            box.appendChild(div)
+//            div.setAttribute('class','buttom')
+//            var div2 = document.getElementsByClassName('buttom')
+//            for(var j = 0; j < div1.length; j++) {
+//
+//                div2[j].style.width = '90px'
+//                div2[j].style.backgroundColor = 'red'
+//                div2[j].style.position = 'absolute'
+//                div2[j].style.bottom = '0px'
+//                div2[j].style.right = '0px'
+//                if(j == div1.length-1) {
+//                    break
+//                }
+//
+//            }
+//            var mun4 = Math.floor(Math.random()*100+100)
+////            mun4 = mun4
+//            var mun5 = 0
+//            setInterval(function() {
+//                mun5 += 5
+//                for(var j = 0; j < div1.length; j++) {
+//                    div2[j].style.height = mun4+'px'
+//                    div2[j].style.right = mun5 + 'px'
+//
+//                }
+//            },30)
+
+//
+                clearInterval(time2)
+            var time2 =   setInterval(function() {
+                  if(i >= 5 ) {
+               if(mun < div1[i-4].offsetHeight || mun > 500-(div2[j - 4].offsetHeight)) {
+                   alert('游戏结束')
+                   clearInterval(time1)
+               }
+
+           }
+              })
+//            if(i >= 5) {
+//                if(mun < div1[i-4].offsetHeight) {
+//                    alert('游戏结束')
+//                    clearInterval(time1)
+//                    console.log( div1[i-5].offsetHeight)
+//                }
+//            }
+
+
+
+
+
+        },1000)
+
+
+    }
+
+
+</script>

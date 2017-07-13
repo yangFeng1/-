@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>标题</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #ccc;
+        }
+
+        li {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: pink;
+            border: 1px solid black;
+            list-style: none;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .box {
+            width: 330px;
+            height: 330px;
+            margin: 0 auto;
+        }
+
+        .text {
+            width: 300px;
+            height: 300px;
+            float: left;
+            border: 1px solid black;
+            font: bold 20px "微软雅黑";
+            padding: 0 10px;
+            margin-left: 50px;
+        }
+
+        .btn {
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+            font: bold 20px "微软雅黑";
+            padding: 0 10px;
+            margin-right: 50px;
+            position: fixed;
+            top: 0;
+            right: 50px;
+        }
+
+        .btn button {
+            margin-top: 50px;
+            width: 90px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="text">
+    <h1>游戏规则</h1>
+
+    <p>在国际象棋中，皇后的攻击力是最强的，她可以沿着横线或竖线吃子，也可以沿着对角线吃子。请在棋盘上放尽可能多的棋子，使得每次放置的棋子不被已经放置的棋子吃掉</p>
+</div>
+<div class="box">
+    <ul id="one">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <br/>
+    <ul id="two">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <br/>
+    <ul id="thr">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <br/>
+    <ul id="fou">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <br/>
+    <ul id="fiv">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <br/>
+    <ul id="six">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <br/>
+    <ul id="sev">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <br/>
+    <ul id="eig">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<div class="btn">
+    <button id="btn0">开始游戏</button>
+    <button id="btn2">暂停游戏</button>
+    <button id="btn3">结束游戏</button>
+    <div id="ones" class="time">
+        <span id="t_h"></span>
+        <span id="t_m"></span>
+        <span id="t_s"></span>
+        <span id="t_sm"></span>
+        <span id="t_sm1"></span>
+        <button id="btn">重置</button>
+        <button id="btn1">开始计时</button>
+    </div>
+</div>
+</body>
+</html>
+</body>
+</html>
+<script>
+    var one = document.getElementById('one')
+    var two = document.getElementById('two')
+    var thr = document.getElementById('thr')
+    var fou = document.getElementById('fou')
+    var fiv = document.getElementById('fiv')
+    var six = document.getElementById('six')
+    var sev = document.getElementById('sev')
+    var eig = document.getElementById('eig')
+    var arr = []
+
+    function color(mun,a,b) {
+            if(mun[a] == undefined) {
+               return
+
+            }
+        if(mun[a][b] == undefined) {
+            return
+        }
+        return mun[a][b].style.backgroundColor == 'red'
+    }
+    var k = 0
+    var lis = document.body.getElementsByTagName('li')
+    for (var i = 0; i < lis.length / 8; i++) {
+        var arr1 = []
+        for (var j = 0; j < 8; j++) {
+
+            arr1[j] = lis[k]
+            k++
+        }
+        arr[i] = arr1
+    }
+    for (var q = 0; q < lis.length; q++) {
+        lis[q].onclick = function () {
+            var o = 0
+            for (var a = 0; a < arr.length; a++) {
+                for (var b = 0; b < arr[a].length; b++) {
+                    if (arr[a][b] == this) {
+                        o = 1
+                        break
+                    }
+                }
+                if (o == 1) {
+                    break
+                }
+            }
+
+             if (color(arr,[a],[b - 1]) || color(arr,[a],[b + 1])) {
+                alert('游戏结束')
+            } else if (color(arr,[a - 1],[b]) || color(arr,[a - 1],[b - 1]) || color(arr,[a - 1],[b + 1])) {
+                alert('游戏结束')
+            } else if (color(arr,[a + 1],[b]) || color(arr,[a + 1],[b - 1]) || color(arr,[a + 1],[b + 1])) {
+                alert('游戏结束')
+            }
+            this.style.backgroundColor = 'red'
+
+
+        }
+    }
+
+
+</script>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div {width:20px; height:20px; position:absolute; border:1px solid black;}
+        .normal {background:white;}
+        .active {background:red;}
+        .fix {background:#333;}
+        #txt1 {position:absolute; left:250px;}
+    </style>
+</head>    
+<body>
+
+</body>
+</html>
+<script>
+    window.onload = function(){
+        var arr = []
+        var row = 20
+        var cols= 10
+        var box = document.getElementsByClassName('active')
+//        var box1 = document.getElementsByName('active')
+        for(var i = 0; i <row;i++){
+            arr[i] = []
+            for(var j = 0; j < cols; j++) {
+               arr[i][j] = document.createElement('div')
+                arr[i][j].style.top = i*24+'px'
+                arr[i][j].style.left = j*24+'px'
+                arr[i][j].setAttribute('class','normal')
+                document.body.appendChild(arr[i][j])
+            }
+
+        }
+
+
+        var nowBlock = {num:0,cells:[]}
+        var num = Math.ceil(Math.random()*4)
+        switch(num)
+        {
+            case 1:
+                nowBlock.cells=[[0, cols/2-2], [0, cols/2-1], [0, cols/2], [0, cols/2+1]];
+                break;
+            case 2:
+                nowBlock.cells=[[0, cols/2-2], [0, cols/2-1], [0, cols/2], [1, cols/2-2]];
+                break;
+            case 3:
+                nowBlock.cells=[[1, cols/2-1], [1, cols/2], [1, cols/2+1], [0, cols/2]];
+                break;
+            case 4:
+                nowBlock.cells=[[0, cols/2-1], [0, cols/2], [1, cols/2-1], [1, cols/2]];
+                break;
+            case 5:
+                nowBlock.cells=[[0, cols/2-1], [0, cols/2], [1, cols/2], [1, cols/2+1]];
+                break;
+        }
+        for(var i = 0; i < nowBlock.cells.length;i++){
+            arr[nowBlock.cells[i][0]][nowBlock.cells[i][1]].setAttribute('class','active')
+        }
+        var timer =  setInterval(function(){
+            for(var j = 0;j <row;j++ ){
+                for(var i = 0; i < cols;i++){
+                    if( arr[j][i].getAttribute('class') == 'active'){
+                        arr[j][i].setAttribute('class','normal')
+                    }
+
+                }
+            }
+//
+            for(var i = 0; i < nowBlock.cells.length;i++){
+                nowBlock.cells[i][0] = nowBlock.cells[i][0]+1
+            }
+            for(var i = 0;i < nowBlock.cells.length;i++){
+
+                if(nowBlock.cells[i][0] == 19 || arr[nowBlock.cells[i][0]+1][nowBlock.cells[i][1]].getAttribute('class') == 'fix'){
+
+                    for(var j = 0; j < nowBlock.cells.length;j++){
+
+                        arr[nowBlock.cells[j][0]][nowBlock.cells[j][1]].setAttribute('class','fix')
+                        if(j == nowBlock.cells.length-1){
+
+                                var num = Math.ceil(Math.random()*4)
+                                switch(num)
+                                {
+                                    case 1:
+                                        nowBlock.cells=[[0, cols/2-2], [0, cols/2-1], [0, cols/2], [0, cols/2+1]];
+                                        break;
+                                    case 2:
+                                        nowBlock.cells=[[0, cols/2-2], [0, cols/2-1], [0, cols/2], [1, cols/2-2]];
+                                        break;
+                                    case 3:
+                                        nowBlock.cells=[[1, cols/2-1], [1, cols/2], [1, cols/2+1], [0, cols/2]];
+                                        break;
+                                    case 4:
+                                        nowBlock.cells=[[0, cols/2-1], [0, cols/2], [1, cols/2-1], [1, cols/2]];
+                                        break;
+                                    case 5:
+                                        nowBlock.cells=[[0, cols/2-1], [0, cols/2], [1, cols/2], [1, cols/2+1]];
+                                        break;
+                                }
+                            for(var i = 0; i < nowBlock.cells.length;i++){
+                                if(arr[nowBlock.cells[i][0]][nowBlock.cells[i][1]].getAttribute('class') == 'fix'){
+                                    alert('游戏结束')
+                                   clearInterval(timer)
+                                }
+                            }
+                                return
+//                            break
+                        }
+                    }
+
+                }
+//setTimeout()
+            }
+
+
+            for(var i = 0; i < nowBlock.cells.length;i++){
+                arr[nowBlock.cells[i][0]][nowBlock.cells[i][1]].setAttribute('class','active')
+            }
+            for(var i = 0;i < row;i++){
+                var index =0
+                for(var k =0;k < cols;k++){
+
+                    if(arr[i][k].getAttribute('class') == 'fix'){
+                        index++
+                    }
+                    if(index == cols){
+                        for(var j = 0; j < cols; j++){
+                            arr[i][j].setAttribute('class','normal')
+                        }
+                            for(var s = i;s <row;s--){
+                                for(var w = 0;w < cols;w++){
+                                    if(arr[s-1][w].getAttribute('class') =='fix' ){
+                                        arr[s-1][w].setAttribute('class','normal')
+                                        arr[s][w].setAttribute('class','fix')
+                                    }
+                                }
+                           }
+
+                    }
+                }
+            }
+        },1000)
+
+        function getMin(arr){
+            var x = 9999;
+            var y = 9999;
+            for(var i = 0; i < nowBlock.cells.length;i++){
+                if(x > arr[i][0]){
+                    x = arr[i][0]
+                }
+                if( y > arr[i][1]){
+                    y = arr[i][1]
+                }
+
+            }
+            return {x:x , y:y}
+
+        }
+        function variant(){
+            var tep = getMin(nowBlock.cells)
+            var newArr = []
+            var newArr1= []
+            for(var i =0; i < nowBlock.cells.length;i++){
+                 newArr[i] =[nowBlock.cells[i][0]-tep.x,nowBlock.cells[i][1]-tep.y]
+                newArr1[i] = [4-newArr[i][1],newArr[i][0] ]
+            }
+            return newArr1
+        }
+ 
+        document.onkeydown = function(e){
+            //左 - 65
+            //右 - 68
+            //上 - 87
+            //下 - 83
+            if(e.keyCode == 65){
+                for(var k = 0; k < nowBlock.cells.length;k++){
+                    if(nowBlock.cells[k][1]-1 <0 ) {
+                        return;
+                    }
+                    if(arr[nowBlock.cells[k][0]][nowBlock.cells[k][1]-1].getAttribute('class')== 'fix'){
+                        return
+                    }
+                }
+                for(var i = 0; i < nowBlock.cells.length; i++){
+
+
+                    nowBlock.cells[i][1] = nowBlock.cells[i][1]-1
+
+                }
+                for(var j = 0;j <row;j++ ){
+                    for(var i = 0; i < cols;i++){
+                        if( arr[j][i].getAttribute('class') == 'active'){
+                            arr[j][i].setAttribute('class','normal')
+                        }
+
+                    }
+                }
+                    setTimeout(
+                    function(){
+                        for(var i = 0; i < nowBlock.cells.length;i++){
+                            arr[nowBlock.cells[i][0]][nowBlock.cells[i][1]].setAttribute('class','active')
+                        }
+                    }
+                    )
+
+
+            }
+            if(e.keyCode == 68){
+                for(var k = 0; k < nowBlock.cells.length;k++){
+                    if(nowBlock.cells[k][1]+1 >9) {
+                        return
+                    }
+                    if(arr[nowBlock.cells[k][0]][nowBlock.cells[k][1]+1].getAttribute('class')== 'fix'){
+                        return
+                    }
+                }
+                for(var i = 0; i < nowBlock.cells.length; i++){
+
+
+                    nowBlock.cells[i][1] = nowBlock.cells[i][1]+1
+
+                }
+                for(var j = 0;j <row;j++ ){
+                    for(var i = 0; i < cols;i++){
+                        if( arr[j][i].getAttribute('class') == 'active'){
+                            arr[j][i].setAttribute('class','normal')
+                        }
+
+                    }
+                }
+                setTimeout(
+                        function(){
+                            for(var i = 0; i < nowBlock.cells.length;i++){
+                                arr[nowBlock.cells[i][0]][nowBlock.cells[i][1]].setAttribute('class','active')
+                            }
+                        }
+                )
+
+
+            }
+            if(e.keyCode == 83){
+                for(var k = 0; k < nowBlock.cells.length;k++){
+                    if(nowBlock.cells[k][0]+2 ==19) {
+                        return
+                    }
+                    if(arr[nowBlock.cells[k][0]+2][nowBlock.cells[k][1]].getAttribute('class')=='fix'){
+                        return
+                    }
+                }
+                for(var i = 0; i < nowBlock.cells.length; i++){
+
+
+                    nowBlock.cells[i][0] = nowBlock.cells[i][0]+1
+
+                }
+                for(var j = 0;j <row;j++ ){
+                    for(var i = 0; i < cols;i++){
+                        if( arr[j][i].getAttribute('class') == 'active'){
+                            arr[j][i].setAttribute('class','normal')
+                        }
+
+                    }
+                }
+                setTimeout(
+                        function(){
+                            for(var i = 0; i < nowBlock.cells.length;i++){
+                                arr[nowBlock.cells[i][0]][nowBlock.cells[i][1]].setAttribute('class','active')
+                            }
+                        }
+                )
+
+
+            }
+
+            if(e.keyCode == 87){
+                var newArr = variant()
+                var newArrMin = getMin(newArr)
+                for(var i = 0;i < nowBlock.cells.length;i++){
+                    newArr[i][0] -= newArrMin.x
+                    newArr[i][1] -= newArrMin.y
+                }
+                for(var i = 0; i < nowBlock.cells.length;i++){
+                    newArr[i][0]+= getMin(nowBlock.cells).x
+                    newArr[i][1]+= getMin(nowBlock.cells).y
+                }
+                for(var i = 0; i < nowBlock.cells.length;i++){
+                    if(!arr[newArr[i][0]][newArr[i][1]]||arr[newArr[i][0]][newArr[i][1]].getAttribute('class')=='fix'){
+                        return
+                    }
+                }
+                nowBlock.cells = newArr
+                for(var j = 0;j <row;j++ ){
+                    for(var i = 0; i < cols;i++){
+                       if(arr[j][i].getAttribute('class' ) == 'active' ){
+                           arr[j][i].setAttribute('class','normal')
+                       }
+                    }
+                }
+
+                for(var i = 0; i < nowBlock.cells.length;i++){
+                    arr[nowBlock.cells[i][0]][nowBlock.cells[i][1]].setAttribute('class','active')
+                }
+            }
+        }
+
+
+    }
+</script>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 500px;
+            height: 500px;
+            border: 1px solid black;
+            margin: 80px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        span{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            position: absolute;
+            left: 0px;
+            top: 0;
+            border-radius: 50%;
+        }
+        * {
+            margin: 0;
+            padding: 0px;
+        }
+
+
+
+        #fj {
+            height: 30px;
+            width: 30px;
+            background-color: pink;
+            position: absolute;
+            top: 0;
+            left: 0px;
+        }
+    </style>
+    <script src="../学习/jQuery/jQ/jquery-2.2.2.js"></script>
+    <script>
+     $(function(){
+
+         var timeId = null ;
+        var i  = 0 ;
+        setInterval(function(){
+
+                var span = $("<span></span>")
+                $("#box").append(span);
+                qidian =  Math.floor(Math.random()*50 ) ;
+                $("span").last().css("left",qidian*10);
+            $("span").attr("class","s")
+        },Math.floor(Math.random()*6)*20+1);
+
+         var spans = document.getElementsByClassName("s");
+         $(spans).each(function(index,ele){
+            $(spans).eq(index).change(function(){
+               alert(123)
+            })
+         })
+
+
+            timeId = setInterval(function(){
+                $('span').animate({
+                    top:500
+                },2000)
+                if($("span").length>500){ // 超过500个小圆点就删除
+                 $("span").eq(0).remove();
+                   }
+//
+                 },50);
+
+
+
+         $("#box").on("click", function (e) {
+           var x = e.pageX - $("#box").offset().left;
+           var y = e.pageY - $("#box").offset().top;
+             var $boxw = $("#box").width();
+             var $boxh = $("#box").height();
+             $("#box").on("mousemove", function (e) {
+
+                 var movex = e.pageX - $("#box").offset().left - ($("#fj").width()) / 2;
+                 var movey = e.pageY - $("#box").offset().top - ($("#fj").height()) / 2;
+                 movex = movex < 0 ? 0 : movex;
+                 movey = movey < 0 ? 0 : movey ;
+                 movex = movex > $boxw-($("#fj").width()) ? $boxw-($("#fj").width()):movex;
+                 movey = movey > $boxh-($("#fj").height()) ? $boxh-($("#fj").height()):movey;
+                 $("#fj").css({left: movex, top: movey});
+             })
+             e.stopPropagation();// 阻止冒泡
+         }) ;
+
+         $(document).on("click",function(){
+             $("#box").off('mousemove');
+         })
+     })
+
+    </script>
+</head>
+<body>
+<div id="box">
+ <div id="fj"></div>
+</div>
+</body>
+</html>

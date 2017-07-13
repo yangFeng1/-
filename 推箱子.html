@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        div {
+            width: 220px;
+            height: 200px;
+            margin: 0 auto;
+            margin-top: 150px;
+        }
+        p {
+            height: 20px;
+        }
+        div p span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+
+            float: left;
+
+        }
+        .color {
+            background: gray;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <p>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </p>
+    <p>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+    </p>
+    <p>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+    </p>
+    <p>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+    </p>
+    <p>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span ></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+    </p>
+    <p>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </p>
+    <p>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </p>
+    <p>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </p>
+    <p>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </p>
+    <p>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span class="color"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </p>
+</div>
+</body>
+</html>
+<script>
+    var box = document.getElementById('box')
+    var p = box.getElementsByTagName('p')
+    var span1 = p[0].children
+    var span = document.getElementsByTagName('span')
+    for(var i = 0; i < span1.length; i++) {
+        span1[i].style.background = 'gray'
+    }
+</script>

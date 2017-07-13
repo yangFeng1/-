@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <style> 
+        .box1{
+            width: 200px;
+            height: 200px;
+            background: blue;
+        }
+        .box2{
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" name="" value="淡出">
+    <div class="box1">
+        <div class="box2"></div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript" src="../学习/移动web/lib/zepto/zepto.js"></script>
+<script type="text/javascript" src="../学习/移动web/lib/zepto/event.js"></script>
+<script type="text/javascript" src="../学习/移动web/lib/zepto/touch.js"></script>
+<script type="text/javascript" src="../学习/移动web/lib/zepto/fx.js"></script>
+<script type="text/javascript"src="../学习/移动web/lib/zepto/fx_methods.js"></script>
+        
+    </script>
+    <script>
+        $(function(){
+            $('input').on('click',function(){
+                $('.box2').fadeOut(5000)
+            })
+        })
+    </script>

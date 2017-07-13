@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+    canvas{
+       margin-left: 300px;
+    }
+
+    </style>
+</head>
+<body>
+    <canvas id="can" width="320" height="600">    
+    </canvas>
+    <canvas id="canvas" width=""></canvas>
+
+</body>
+</html>
+<script>
+    var can = document.querySelector('#can');
+    var ctx = can.getContext('2d');
+    var yue1 ;
+    var yue2;
+    var yue3;
+    //月饼1
+
+
+  	   var num = Math.floor((Math.random()*300)%250)
+     yue1 = new Image;
+     yue1.setAttribute('class','yue')
+     
+    yue1.src = 'img/food1.png'
+    var  yueLoaction = (function(){
+        return {
+            x:num,
+            y:0,
+        }
+   })()   
+   //月饼2
+
+  	   var num = Math.floor((Math.random()*300)%250)
+   
+     var yueLoaction3 = (function(){
+        return {
+            x:num,
+            y:0,
+        }
+   })()  
+setTimeout(function(){
+	   yue3 = new Image;
+     yue3.setAttribute('class','yue')
+     
+    yue3.src = 'img/food1.png'
+},1000)
+
+   //月饼3
+
+  	   var num = Math.floor((Math.random()*300)%250)
+   
+     var yueLoaction2 = (function(){
+        return {
+            x:num,
+            y:0,
+        }
+   })()  
+setTimeout(function(){
+	   yue2 = new Image;
+     yue2.setAttribute('class','yue')
+     
+    yue2.src = 'img/food1.png'
+},2000)
+  
+        //玩家操控的兔子
+    ctx.beginPath();
+    
+    var player = new Image;
+   //用一个对象来储存兔子的位置
+   var playerLoaction = (function(){
+        return {
+            x:100,
+            y:450,
+        }
+   })()
+   //讲兔子绘制上去
+  
+   player.src = 'img/player.png'
+  
+    //背景
+  
+    ctx.beginPath();
+    var img = new Image;
+    img.src = 'img/bg.jpg';
+    img.onload = function(){
+        var begin = -500;
+        //让背景动起来
+         var bgTimer  = setInterval(function(){
+        ctx.drawImage(img,0,begin)
+        //判断边界  
+        playerLoaction.x > 300-player.width+20?playerLoaction.x = 300-player.width+20:playerLoaction.x = playerLoaction.x
+        playerLoaction.x < 0?playerLoaction.x = 0:playerLoaction.x = playerLoaction.x
+        playerLoaction.y > 600-player.height?playerLoaction.y = 600-player.height:playerLoaction.y = playerLoaction.y
+        playerLoaction.y < 0?playerLoaction.y = 0:playerLoaction.y = playerLoaction.y
+        console.log(playerLoaction.x)
+        // console.log(playerLoaction.y)
+        //在每次重绘背景的时候 重绘兔子
+        ctx.drawImage(player,playerLoaction.x,playerLoaction.y)
+        
+        //月饼的位置
+        if(yue1){
+        	if(yueLoaction.x >playerLoaction.x-player.width/2 && (yueLoaction.x<playerLoaction.x+player.width)
+        	&&(yueLoaction.y >playerLoaction.y-(player.height/2)&&yueLoaction.y<playerLoaction.y+player.height)){
+        		if(yue1.src == "http://127.0.0.1:8020/%E5%B0%8F%E6%B8%B8%E6%88%8F/%E5%90%83%E6%9C%88%E9%A5%BC/img/food1.png"){
+        			alert('珍爱生命，远离五仁')
+        		}else{
+        			yueLoaction.x = num;
+        			yueLoaction.y = 0;
+        			
+        		}
+        	}
+        	
+        	
+        	ctx.drawImage(yue1,yueLoaction.x,yueLoaction.y)
+        	
+        }
+         if(yue2){
+         	if(yueLoaction2.x >playerLoaction.x-player.width/2 && (yueLoaction2.x<playerLoaction.x+player.width)
+        	&&(yueLoaction2.y >playerLoaction.y-(player.height/2)&&yueLoaction2.y<playerLoaction.y+player.height)){
+        		if(yue2.src == "http://127.0.0.1:8020/%E5%B0%8F%E6%B8%B8%E6%88%8F/%E5%90%83%E6%9C%88%E9%A5%BC/img/food1.png"){
+        			alert('珍爱生命，远离五仁')
+        		}else{
+        			yueLoaction2.x = num;
+        			yueLoaction2.y = 0;
+        			
+        		}
+        	}
+        	ctx.drawImage(yue2,yueLoaction2.x,yueLoaction2.y)
+        	yueLoaction2.y += 2;
+        }
+         if(yue3){
+         	if(yueLoaction3.x >playerLoaction.x-player.width/2 && (yueLoaction3.x<playerLoaction.x+player.width)
+        	&&(yueLoaction3.y >playerLoaction.y-(player.height/2)&&yueLoaction3.y<playerLoaction.y+player.height)){
+        		if(yue3.src == "http://127.0.0.1:8020/%E5%B0%8F%E6%B8%B8%E6%88%8F/%E5%90%83%E6%9C%88%E9%A5%BC/img/food1.png"){
+        			alert('珍爱生命，远离五仁')
+        		}else{
+        			yueLoaction3.x = num;
+        			yueLoaction3.y = 0;
+        			
+        		}
+        	}
+        	ctx.drawImage(yue3,yueLoaction3.x,yueLoaction3.y)
+        	yueLoaction3.y += 2;
+        }
+         //月饼1
+        yueLoaction.y += 2;
+        if(yueLoaction.y == 600){
+            yueLoaction.y = 0;
+            var num = Math.floor((Math.random()*300)%250)
+            yueLoaction.x = num
+           var num = (Math.random()*20)%2
+        	if(num <1){
+        		yue1.src = 'img/food1.png';
+        	}else{
+        		yue1.src = 'img/food2.png';
+        	}
+        }
+        
+        //月饼2
+        if(yueLoaction2.y == 600){
+            yueLoaction2.y = 0;
+            var num = Math.floor((Math.random()*300)%250)
+            yueLoaction2.x = num
+         var num = (Math.random()*20)%2
+        	if(num <1){
+        		yue2.src = 'img/food1.png';
+        	}else{
+        		yue2.src = 'img/food2.png';
+        	}
+        }
+        //月饼3
+        if(yueLoaction3.y == 600){
+            yueLoaction3.y = 0;
+            var num = Math.floor((Math.random()*300)%250)
+            yueLoaction3.x = num
+        	var num = (Math.random()*20)%2
+        	if(num <1){
+        		yue3.src = 'img/food1.png';
+        	}else{
+        		yue3.src = 'img/food2.png';
+        	}
+        }
+        begin += 1;
+        if(begin >= 0){
+            begin = -500
+        }
+    },10)
+    }
+//实现摁住兔子 实现拖动
+
+    window.onmousemove = function(e){
+        
+        playerLoaction.x = e.pageX-300-player.width/2;
+        playerLoaction.y = e.pageY-player.height/2;
+        
+    }  
+      
+</script>

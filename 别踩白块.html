@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #box {
+            width: 320px;
+            height: 560px;
+            margin: 0 auto;
+            border: 3px solid red;
+            position: relative;
+            overflow: hidden;
+        }
+        #box-one {
+
+            position: absolute;
+            top: -159px;
+            padding-top: 78px;;
+        }
+        .div {
+            height: 80px;
+            width: 320px;
+            background: white;
+        }
+
+        span {
+            float: left;
+            display: inline-block;
+            width: 78px;
+            height: 78px;
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    
+        <div id="box-one">
+            <div class="div">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script>
+    var box1 = document.getElementById('box-one')
+    var div = document.getElementsByClassName('div')[0]
+    var span = document.getElementsByTagName('span')
+
+    for(var i = 0;i < 8;i++) {
+        var num = Math.floor(Math.random()*4)
+        var cloneDiv = div.cloneNode(true)
+        cloneDiv.children[num].style.backgroundColor = 'black'
+        box1.appendChild(cloneDiv)
+
+    }
+    for(var i = 0 ; i < span.length;i++) {
+        span[i].onclick = function () {
+//            var num = Math.floor(Math.random()*4)
+            var clDiv = div.cloneNode(true)
+
+
+//            clDiv.children[num].style.backgroundColor = 'black'
+            var span1 = clDiv.getElementsByTagName('span')
+            box1.insertBefore(clDiv,box1.children[0])
+            box1.style.paddingTop = '0px'
+
+            animate(box1,78,span1,this,clDiv)
+
+
+
+
+
+        }
+    }
+
+
+    function animate(obj, target,ele,attr,s) {
+        var num = Math.floor(Math.random()*4)
+        ele[num].style.backgroundColor = 'black'
+        if(attr.style.backgroundColor != 'black') {
+            attr.style.backgroundColor = 'red'
+            alert('游戏失败')
+            return
+        } else{
+            attr.style.backgroundColor = 'blue'
+        }
+
+        for(var i = 0; i < ele.length;i++) {
+            ele[i].onclick = function () {
+
+                var clDiv = div.cloneNode(true)
+                box1.insertBefore(clDiv,box1.children[0])
+
+                box1.style.paddingTop = '0px'
+                var span1 = clDiv.getElementsByTagName('span')
+                animate(box1,78,span1,this)
+            }
+        }
+        clearInterval(obj.timeId);
+        obj.timeId = setInterval(function () {
+            // 先获得对象当前的位置
+            var leader = parseInt(obj.style.paddingTop);
+            var step = 7;
+            step = leader < target ? step : -step;
+            if (Math.abs(target - leader) > Math.abs(step)) { // 当前位置不等于目标位置的话，则不断的进行加步长
+                leader = leader + step;
+                obj.style.paddingTop = leader + 'px';
+            } else {
+
+                obj.style.paddingTop = target + 'px';//最后不足一个步长的时候，可以直接跳过来
+                clearInterval(obj.timeId);//清掉定时器
+
+            }
+        }, 15);
+    }
+</script>

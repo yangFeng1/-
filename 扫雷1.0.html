@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 270px;
+            height: 270px;
+            margin: 200px auto;
+        }
+        li{
+            width: 28px;
+            height: 28px;
+            list-style: none;
+            border: 1px solid black;
+            float: left;
+            background: gray;
+        }
+
+    </style>
+    <script src="../学习/jQuery/jQ/jquery-1.12.2.js"></script>
+    <script>
+        $(function(){
+            var lis = document.getElementsByTagName('li')
+            var k = 0
+
+            var arr = []
+            for (var i = 0; i < lis.length / 8; i++) {
+                var arr1 = []
+                for (var j = 0; j < 9; j++) {
+
+                    arr1[j] = lis[k]
+                    k++
+                }
+                arr[i] = arr1
+            }
+            for(var i = 0; i < 15;i++) {
+                var num1 = Math.floor(Math.random()*8)
+                var num2 = Math.floor(Math.random()*9)
+                arr[num1][num2].setAttribute('class','boom')
+            }
+            $('li').on('mousedown',function(e){
+                var flag = true
+                for(var i = 0; i < $('.boom').length;i++){
+                        if($('.boom').eq(i).css('backgroundColor') != 'rgb(255, 0, 0)'){
+                            flag = false
+                            break
+                        }
+
+                    }
+                if(flag){
+                    alert('通关成功')
+                }
+
+                if(e.which != 1) {
+                    if($(this).css('backgroundColor') != 'rgb(255, 0, 0)') {
+                        $(this).css('backgroundColor','red')
+                    } else {
+                        $(this).css('backgroundColor','gray')
+                    }
+
+                }
+            })
+            $('li').on('click',function(e){
+                    console.log(e.which)
+                if(e.which == 3){
+                    $(this).css('backgroundColor','red')
+                } else{
+                    if(this.getAttribute('class') == 'boom'){
+                        $('.boom').css('backgroundColor','red')
+                        alert('游戏结束')
+                        return
+                    }
+                    var  o = 0
+                    for (var a = 0; a < arr.length; a++) {
+                        for (var b = 0; b < arr[a].length; b++) {
+                            if (arr[a][b]== this)    {
+                                o = 1
+                                break
+                            }
+                        }
+                        if (o == 1) {
+                            break
+                        }
+                    }
+                    var index = 0
+                    if(getBoom(arr,[a],[b+1])){
+                        index++
+                    }
+                    if(getBoom(arr,[a],[b-1])){
+                        index++
+                    }
+                    if(getBoom(arr,[a+1],[b+1])){
+                        index++
+                    }
+                    if(getBoom(arr,[a+1],[b])){
+                        index++
+                    }
+                    if(getBoom(arr,[a+1],[b-1])){
+                        index++
+                    }
+                    if(getBoom(arr,[a-1],[b+1])){
+                        index++
+                    }
+                    if(getBoom(arr,[a-1],[b])){
+                        index++
+                    }
+                    if(getBoom(arr,[a-1],[b-1])){
+                        index++
+                    }
+                    if(index == 0) {
+                        get(arr,[a],[b+1])
+                        get(arr,[a],[b-1])
+                        get(arr,[a+1],[b+1])
+                        get(arr,[a+1],[b-1])
+                        get(arr,[a+1],[b])
+                        get(arr,[a-1],[b])
+                        get(arr,[a-1],[b+1])
+                        get(arr,[a-1],[b-1])
+                    }
+                    this.innerHTML = index
+                    this.style.backgroundColor = '#fff'
+                }
+
+
+
+            })
+            function getBoom(obj,a,b){
+                if(obj[a] == undefined) {
+                    return false
+                } else if(obj[a][b] == undefined){
+                    return false
+                } else {
+                 return   obj[a][b].getAttribute('class') == 'boom'
+                }
+            }
+            function get(obj,a,b){
+                if(obj[a] == undefined) {
+                    return
+                } else if(obj[a][b] == undefined){
+                    return
+                } else {
+                      obj[a][b].click()
+                }
+            }
+
+        })
+
+    </script>
+</head>
+<body>
+<div class="box">
+    <ul class="one">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul class="tow">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul class="thr">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul class="four">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul class="fiv">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul class="six">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul class="sen">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <ul class="eig">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+</html>
